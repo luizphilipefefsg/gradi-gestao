@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@media print {
+  /* 1. Ocultar todos os elementos que não pertencem ao relatório */
+  nav,
+  header,
+  footer,
+  aside,
+  .no-print,
+  .print\:hidden,
+  [data-no-print="true"] {
+    display: none !important;
+  }
+
+  /* 2. Reset de página e corpo para A4 */
+  @page {
+    size: A4 portrait;
+    margin: 10mm 10mm 12mm 10mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 3. Área exclusiva do Relatório */
+  #relatorio-preview-print {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Tabelas sem scroll horizontal na impressão */
+  #relatorio-preview-print .overflow-x-auto {
+    overflow: visible !important;
+  }
+
+  #relatorio-preview-print table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  #relatorio-preview-print tr {
+    page-break-inside: avoid !important;
+  }
+
+  #relatorio-preview-print thead {
+    display: table-header-group !important;
+  }
+
+  /* Remover sombras de cards para impressão limpa em folha A4 */
+  #relatorio-preview-print * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
