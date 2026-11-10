@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isMaster() {
+      return signedIn()
+        && request.auth.token.email == 'administrativo@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    function myProfile() {
+      return get(/databases/$(database)/documents/systemUsers/$(request.auth.uid)).data;
+    }
+
+    function belongsToStore(storeId) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/systemUsers/$(request.auth.uid))
+        && myProfile().status == 'ativo'
+        && myProfile().lojaId == storeId;
+    }
+
+    match /systemUsers/{userId} {
+      allow get: if isMaster() || (signedIn() && request.auth.uid == userId);
+      allow list: if isMaster();
+      allow create, delete: if isMaster();
+      allow update: if isMaster()
+        || (signedIn() && request.auth.uid == userId
+          && !request.resource.data.diff(resource.data).affectedKeys()
+            .hasAny(['role', 'status', 'lojaId', 'email']));
+    }
+
+    match /stores/{storeId} {
+      allow read: if isMaster() || belongsToStore(storeId);
+      allow create, update, delete: if isMaster();
+
+      match /{collectionName}/{documentId} {
+        allow read, write: if isMaster() || belongsToStore(storeId);
+      }
+    }
+
+    match /admins/{adminId} {
+      allow read, write: if isMaster();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

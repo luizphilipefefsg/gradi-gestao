@@ -1,0 +1,6 @@
+{
+  "name": "Gradi Gestão - Sistema para Lojas de Roupas",
+  "description": "Gradi Gestão: Sistema completo de ERP, PDV, Condicional, Crediário e Impressão de Etiquetas para Lojas de Roupas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
