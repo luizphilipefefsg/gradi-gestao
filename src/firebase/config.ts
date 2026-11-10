@@ -4,7 +4,7 @@ import { getFirestore } from 'firebase/firestore';
 
 // Os valores são configurados nas variáveis VITE_FIREBASE_* da Vercel.
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyBfyVj7G0cLYbXJv2vZDq4pxv_Tpt5kks',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyBfyVj7GCoLYbXJv2vPZdQs4pxV_Tpt5kks',
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'gradi-gestao.firebaseapp.com',
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'gradi-gestao',
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'gradi-gestao.firebasestorage.app',
